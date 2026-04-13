@@ -12,7 +12,7 @@ class Solution {
 
             if(map.size() > 2)
             {
-                while (map.size() > 2)
+                if (map.size() > 2)
                 {
                     map.put(fruits[l],map.getOrDefault(fruits[l],0)-1);
                     if(map.get(fruits[l])== 0)
