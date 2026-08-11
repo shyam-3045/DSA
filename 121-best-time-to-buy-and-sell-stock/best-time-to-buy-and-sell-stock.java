@@ -1,21 +1,16 @@
 import java.util.*;
 class Solution {
     public int maxProfit(int[] p) {
-       int l=0;
-       int r=l+1;
+       int buy = Integer.MAX_VALUE;
        int pro =0;
+       for(int s : p)
+       {
+        if(s < buy) buy =s;
+        else{
+            pro = Math.max(pro,s-buy);
+        }
 
-       while(r<p.length){
-        if(p[r] - p[l] <=0)
-        {
-            l=r;
-        }
-        if(p[r]-p[l] > 0)
-        {
-            pro = Math.max(pro,p[r]-p[l]);
-            
-        }
-        r++;
+        
        }
 
        return pro;
