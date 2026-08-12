@@ -14,12 +14,13 @@ class Solution {
 
         while(r<n)
         {
-            
+            if(hash[s.charAt(r)] != -1)
+            {
                 if(hash[s.charAt(r)] >= l)
                 {
                     l=hash[s.charAt(r)]+1;
                 }
-            
+            }
             
             maxLen=Math.max(maxLen,r-l+1);
             hash[s.charAt(r)]=r;
