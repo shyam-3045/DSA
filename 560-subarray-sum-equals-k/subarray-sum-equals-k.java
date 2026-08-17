@@ -7,10 +7,12 @@ class Solution {
 
         for(int i=0;i<nums.length;i++)
         {
-            pre+=nums[i];
-            int rem= pre - k;
-            cnt+=map.getOrDefault(rem,0);
-            map.put(pre,map.getOrDefault(pre,0)+1);
+            pre += nums[i];
+            int sum= pre - k;
+            cnt+= map.getOrDefault(sum,0);
+            map.put(pre , map.getOrDefault(pre ,0)+1);
+
+
         }
         return cnt;
     }
