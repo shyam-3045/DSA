@@ -19,11 +19,28 @@ class Solution {
     public int coinChange(int[] coins, int amount) {
         if(amount == 0) return 0;
         int[][] dp = new int[coins.length][amount+1];
-        for(int[] row: dp)
+        // for(int[] row: dp)
+        // {
+        //     Arrays.fill(row,-1);
+        // }
+        // int ans =  fn(coins,amount,coins.length-1,dp);
+        // return ans >= Integer.MAX_VALUE /2 ? -1: ans;
+        for(int i=0;i<=amount;i++)
         {
-            Arrays.fill(row,-1);
+            if(i % coins[0] == 0) dp[0][i] = i / coins[0];
+            else dp[0][i] = Integer.MAX_VALUE /2 ;
         }
-        int ans =  fn(coins,amount,coins.length-1,dp);
-        return ans >= Integer.MAX_VALUE /2 ? -1: ans;
+
+        for(int i=1;i<coins.length;i++)
+        {
+            for(int tar = 0;tar<=amount;tar++)
+            {
+                int notTake = 0+dp[i-1][tar];
+                int take = Integer.MAX_VALUE /2;
+                if(coins[i] <= tar) take = 1+dp[i][tar -coins[i]];
+                dp[i][tar] = Math.min(take,notTake);
+            }
+        }
+        return dp[coins.length-1][amount] >= Integer.MAX_VALUE /2 ? -1 : dp[coins.length-1][amount] ;
     }
 }
