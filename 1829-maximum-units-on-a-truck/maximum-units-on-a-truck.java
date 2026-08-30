@@ -7,14 +7,10 @@ class Solution {
         {
             int b = box[i][0];
             int cap = box[i][1];
-
-            while(b > 0 && truckSize > 0)
-            {
-                n += cap;
-                b--;
-                truckSize--;   
-            }
-            if(truckSize == 0) return n;
+            int take = Math.min(b , truckSize);
+            n += take * cap;
+            truckSize -= take;
+            if(truckSize == 0) break;
         }
         return n;
     }
