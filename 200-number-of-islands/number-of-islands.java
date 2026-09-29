@@ -1,61 +1,63 @@
 class Solution {
-    class Pair{
-        int first;
-        int sec ;
+    class Pair {
+        int r;
+        int c;
 
-        Pair(int first , int sec){
-            this.first = first;
-            this.sec= sec;
+        Pair(int r, int c)
+        {
+            this.r =r;
+            this.c=c;
         }
     }
-    public int numIslands(char[][] grid) {
-        int row = grid.length;
-        int col = grid[0].length;
-        int cnt =0;
 
-
-        int[][] vis = new int[row][col];
-        for(int i =0;i<row;i++){
-            for(int j=0;j<col;j++){
-                if(grid[i][j] == '1' && vis[i][j] == 0){
-                    bfs(j,i,grid,vis);
-                    cnt++;
-                }
-            
-        }
-        }
-
-        return cnt;
-    }
-
-    private void bfs(int col , int row , char[][] grid , int[][] vis){
-        Queue<Pair> q = new LinkedList<Pair>();
+    private void bfs(char[][] grid ,int row,int col , int[][] vis)
+    {
+        Queue<Pair> q = new LinkedList<>();
         vis[row][col]=1;
-
         q.offer(new Pair(row,col));
-         int n = grid.length;
-         int m=grid[0].length;
-        while(!q.isEmpty()){
-            int r = q.peek().first;
-            int c = q.peek().sec;
-            q.poll();
 
-            int[] dr = {-1,0,1,0};
+        while(!q.isEmpty())
+        {
+            int r = q.peek().r;
+            int c =q.peek().c;
+            q.poll();
+            int[] dr ={-1,0,1,0};
             int[] dc ={0,1,0,-1};
+
             for(int k=0;k<4;k++)
             {
-                
-                    int nrow = r+dr[k];
-                    int ncol = c+dc[k];
-                    if(nrow >= 0 && nrow < n && ncol >=0 && ncol < m && vis[nrow][ncol] == 0 && grid[nrow][ncol] == '1'){
-                        q.offer(new Pair(nrow,ncol));
-                        vis[nrow][ncol]=1;
-                    }
-                
+                int drow = r+dr[k];
+                int dcol = c+dc[k];
+
+                if(dcol >= 0 && dcol < grid[0].length && drow >=0 && drow < grid.length && vis[drow][dcol] == 0 && grid[drow][dcol] == '1'){
+                    bfs(grid,drow,dcol,vis);
+                }
             }
         }
-
-
-
     }
+
+    public int numIslands(char[][] grid) {
+       int c=0;
+       int row = grid.length;
+       int col = grid[0].length;
+       int[][] vis = new int[row][col];
+
+       for(int i=0;i<row;i++)
+       {
+        for(int j=0;j<col;j++)
+        {
+            if(grid[i][j] == '1' && vis[i][j] ==0)
+            {
+                c++;
+                bfs(grid,i,j,vis);
+            }
+        }
+       }
+
+       return c;
+    }
+
+
+
+
 }
