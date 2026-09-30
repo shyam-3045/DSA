@@ -26,8 +26,6 @@ class Solution {
                 {
                     q.offer(new Pair(i,j,0));
                     vis[i][j] =1;
-                }else{
-                    ans[i][j] =0;
                 }
             }
         }
@@ -50,11 +48,9 @@ class Solution {
                 int ncol = c+delcol[i];
 
                 if(nrow >=0 && nrow < n && ncol >=0 && ncol <m && vis[nrow][ncol] == 0)
-                {
-                     
+                {    
                     vis[nrow][ncol]=1;
-                    q.offer(new Pair(nrow,ncol,d+1));
-                    
+                    q.offer(new Pair(nrow,ncol,d+1)); 
                 }
                 
 
