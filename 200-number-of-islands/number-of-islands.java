@@ -1,63 +1,44 @@
 class Solution {
-    class Pair {
-        int r;
-        int c;
+    private void dfs(char[][] grid , int[][] vis , int i,int j)
+    {
+        int n = grid.length;
+        int m = grid[0].length;
+        vis[i][j] =1;
 
-        Pair(int r, int c)
+        int[] delrow = {-1,0,1,0};
+        int[] delcol= {0,1,0,-1};
+
+        for(int k=0;k<4;k++)
         {
-            this.r =r;
-            this.c=c;
+            int r = delrow[k] + i;
+            int c = delcol[k] + j ;
+
+            if(r >=0  && r <n && c>=0 && c < m && grid[r][c] == '1' && vis[r][c] == 0)
+            {
+                dfs(grid,vis,r,c);
+            }
         }
     }
+    public int numIslands(char[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int[][] vis = new int[n][m];
+        int cnt =0;
 
-    private void bfs(char[][] grid ,int row,int col , int[][] vis)
-    {
-        Queue<Pair> q = new LinkedList<>();
-        vis[row][col]=1;
-        q.offer(new Pair(row,col));
-
-        while(!q.isEmpty())
+        
+        for(int i=0;i<n;i++)
         {
-            int r = q.peek().r;
-            int c =q.peek().c;
-            q.poll();
-            int[] dr ={-1,0,1,0};
-            int[] dc ={0,1,0,-1};
-
-            for(int k=0;k<4;k++)
+            for(int j=0;j<m;j++)
             {
-                int drow = r+dr[k];
-                int dcol = c+dc[k];
-
-                if(dcol >= 0 && dcol < grid[0].length && drow >=0 && drow < grid.length && vis[drow][dcol] == 0 && grid[drow][dcol] == '1'){
-                    bfs(grid,drow,dcol,vis);
+                if(grid[i][j] == '1' && vis[i][j] == 0 )
+                {
+                    cnt++;
+                    dfs(grid,vis,i,j);
                 }
             }
         }
+
+        return cnt;
+
     }
-
-    public int numIslands(char[][] grid) {
-       int c=0;
-       int row = grid.length;
-       int col = grid[0].length;
-       int[][] vis = new int[row][col];
-
-       for(int i=0;i<row;i++)
-       {
-        for(int j=0;j<col;j++)
-        {
-            if(grid[i][j] == '1' && vis[i][j] ==0)
-            {
-                c++;
-                bfs(grid,i,j,vis);
-            }
-        }
-       }
-
-       return c;
-    }
-
-
-
-
 }
