@@ -1,66 +1,57 @@
 class Solution {
-    class Pair {
-        int fir;
-        int sec;
-        int dis;
+    class Pair{
+        int a;
+        int b;
+        int d;
 
-        Pair(int fir , int sec , int dis)
-        {
-            this.fir=fir;
-            this.sec=sec;
-            this.dis=dis;
+        Pair(int a,int b ,int d){
+            this.a =a;
+            this.b=b;
+            this.d=d;
         }
     }
     public int[][] updateMatrix(int[][] mat) {
-        int n=mat.length;
-        int m = mat[0].length;
-        int[][] ans = new int[n][m];
-        int[][] vis = new int[n][m];
-
-        Queue<Pair> q = new LinkedList<>();
+        int n =mat.length;
+        int m= mat[0].length;
+        Queue <Pair> q = new LinkedList<>();
+        int[][] vis= new int[n][m];
 
         for(int i=0;i<n;i++)
         {
-            for(int j=0;j<m;j++){
+            for(int j=0;j<m;j++)
+            {
                 if(mat[i][j] == 0)
                 {
                     q.offer(new Pair(i,j,0));
-                    vis[i][j] =1;
                 }
             }
         }
 
-        int[] delrow={-1,0,1,0};
-        int[] delcol = {0,1,0,-1};
+        int[] delrow = {-1,0,1,0};
+        int[] delcol ={0,1,0,-1};
 
         while(!q.isEmpty()){
-            int r =q.peek().fir;
-            int c = q.peek().sec;
-            int d = q.peek().dis;
+            int r=q.peek().a;
+            int c=q.peek().b;
+            int dis = q.peek().d;
 
-            q.poll();
-            ans[r][c] = d;
-            
-
-            for(int i=0;i<4;i++)
+            for(int k=0;k<4;k++)
             {
-                int nrow=r+delrow[i];
-                int ncol = c+delcol[i];
-
-                if(nrow >=0 && nrow < n && ncol >=0 && ncol <m && vis[nrow][ncol] == 0)
-                {    
-                    vis[nrow][ncol]=1;
-                    q.offer(new Pair(nrow,ncol,d+1)); 
+                int nrow =r+delrow[k];
+                int ncol = c+delcol[k];
+                if(nrow >=0 && ncol >=0 && nrow < n&& ncol < m && mat[nrow][ncol] == 1 && vis[nrow][ncol] == 0)
+                {
+                    mat[nrow][ncol]=dis+1;
+                    q.offer(new Pair(nrow,ncol,dis+1));
+                    vis[nrow][ncol] =1;
                 }
                 
-
-
             }
+            q.poll();
         }
 
+        return mat;
 
-        return ans;
-
-
+        
     }
 }
