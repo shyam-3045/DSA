@@ -1,38 +1,37 @@
 class Solution {
-
-    private int findDay(int[] w , int d)
+    private boolean fn(int[] arr , int days,int cap)
     {
-        int day = 1 , load= 0;
-        for(int i=0;i<w.length;i++)
+        int c =0 , cnt=1;
+
+        for(int i =0;i<arr.length;i++)
         {
-            if(load + w[i] > d){
-                day++;
-                load = w[i];
+            if(c+arr[i] > cap){
+                cnt++;
+                c=0;
             }
-            else load+=w[i];
+            c+=arr[i];
         }
 
-        return day;
+        return cnt <= days;
+
+
     }
-    public int shipWithinDays(int[] w, int days) {
-        int cap = 0 , sum =0;
-        for(int i=0;i<w.length;i++)
+    public int shipWithinDays(int[] arr, int days) {
+        int sum =0 ,max =0;
+        for(int a : arr)
         {
-            cap = Math.max(cap , w[i]);
-            sum+=w[i];
+            max=Math.max(a,max);
+            sum+=a;
+        }
+        int l =max , r =sum ;
+
+        while(l <=r)
+        {
+            int mid = l +(r - l)/2;
+            if(fn(arr,days,mid)) r=mid-1;
+            else l=mid+1;
         }
 
-        int l=cap;
-        int r=sum;
-        while(l < r)
-        {
-            int mid = l + (r -l)/2;
-
-            int day = findDay(w,mid);
-            if(day > days) l = mid +1;
-            else r =mid ;
-        }
-
-        return l ;
+        return l;
     }
 }
