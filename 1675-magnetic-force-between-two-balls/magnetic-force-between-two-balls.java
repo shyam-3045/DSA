@@ -1,34 +1,34 @@
 class Solution {
+
     private boolean fn(int[] arr , int m , int dis)
     {
-        int curr = 1;
+        int curr =1;
         int last = arr[0];
-
         for(int i=1;i<arr.length;i++)
         {
             if(arr[i] - last >= dis)
             {
-                curr ++;
-                last = arr[i];
-            } 
+                curr++;
+                last=arr[i];
+            }
+            
         }
 
-        return curr >= m ?true:false;
+        return curr >= m;
     }
     public int maxDistance(int[] arr, int m) {
         Arrays.sort(arr);
-        int l=1,r=arr[arr.length -1]- arr[0];
+        int n = arr.length;
+        int l=1 , r = arr[arr.length-1] - arr[0];
 
-        while(l <=r)
+        while(l <= r)
         {
-            int mid = l + (r-l)/2;
+            int mid = l + (r - l)/2;
             if(fn(arr,m,mid))
             {
-                l = mid+1;
-            }
-            else r=mid-1;
+                l=mid+1;
+            }else r=mid-1;
         }
-
         return r;
     }
 }
