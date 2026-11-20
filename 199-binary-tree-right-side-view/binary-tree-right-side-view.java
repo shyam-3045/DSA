@@ -14,24 +14,29 @@
  * }
  */
 class Solution {
-    List<Integer> ds = new ArrayList<>();
     public List<Integer> rightSideView(TreeNode root) {
-        Traversal(root,0);
-        return ds ;
-    }
-    private void Traversal(TreeNode node , int level){
-        if(node == null){
-            return ;
-        }
+        Queue<TreeNode> q = new LinkedList<>();
+        List<Integer> li = new ArrayList<>();
+        if(root == null)return li;
 
-        if(level == ds.size())
+        q.offer(root);
+
+        while(!q.isEmpty())
         {
-            ds.add(node.val);
+            int lvl = q.size();
+            int cnt =0;
+            
+            for(int i =0 ;i<lvl;i++)
+            {
+                TreeNode node=q.poll();
+                if(node.left!= null) q.offer(node.left);
+                if(node.right!= null) q.offer(node.right);
+                if(i == lvl-1) li.add(node.val);
+            }
+
         }
 
-        Traversal(node.right,level+1);
-        Traversal(node.left,level+1);
+        return li;
 
-    
     }
 }
