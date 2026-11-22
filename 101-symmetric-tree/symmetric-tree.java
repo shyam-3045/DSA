@@ -13,18 +13,17 @@
  *     }
  * }
  */
+
 class Solution {
+    private boolean same(TreeNode p , TreeNode q)
+    {
+        if(p == null || q==null) return q == p;
+        if(p.val != q.val) return false;
+
+        return same(p.left,q.right) && same(p.right,q.left);
+    }
     public boolean isSymmetric(TreeNode root) {
-        return root == null || isTreeSymetric(root.left, root.right);
+        if(root == null) return true;
+        return same(root.left,root.right);
     }
-    private boolean isTreeSymetric(TreeNode left , TreeNode right){
-
-        if(left == null || right == null) return left == right ;
-        if(left.val != right.val){
-            return false ;
-        }
-
-        return isTreeSymetric(left.left ,right.right) && isTreeSymetric(left.right ,right.left);
-    }
-    
 }
