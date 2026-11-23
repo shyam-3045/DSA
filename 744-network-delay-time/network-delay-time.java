@@ -31,7 +31,7 @@ class Solution {
             int node = pq.peek()[1];
 
             pq.poll();
-            if(d > dis[node]) continue;
+            
 
             for(int[] ed : graph.get(node))
             {
