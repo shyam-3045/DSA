@@ -32,7 +32,7 @@ class Solution {
                 size[un_u]+= size[un_v];
             }
             else{
-              par[un_u] = un_v;
+                par[un_u] = un_v;
                 size[un_v]+= size[un_u];  
             }
 
@@ -66,7 +66,7 @@ class Solution {
         DSU dsu = new DSU(n);
         for(int i=0;i<n;i++)
         {
-            for(int j =i+1;j<n;j++)
+            for(int j =0;j<n;j++)
             {
                 if(isConnected[i][j] == 1) dsu.union(i,j);
             }
